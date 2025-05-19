@@ -45,10 +45,5 @@ if uploaded_file:
                 cv2.imshow("Detected Color", color_box)
                 print(f"Color Name: {color_name}, RGB: ({r}, {g}, {b})")
 
-        cv2.imshow("Click on Image", img_cv)
-        cv2.setMouseCallback("Click on Image", click_event)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
 st.markdown("---")
 st.markdown("Made with ❤️ using OpenCV + Streamlit")
