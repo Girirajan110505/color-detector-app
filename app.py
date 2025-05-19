@@ -29,21 +29,28 @@ if uploaded_file:
     image = Image.open(uploaded_file)
     img_cv = np.array(image)
 
-    st.image(image, caption="Click anywhere on the image", use_container_width=True)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
-    st.write("Click on the image to detect color (only works in local run due to OpenCV).")
+    st.write("Select coordinates to detect color (x = horizontal, y = vertical):")
 
-    # Only works in local environment
-    if st.button("Open image for click detection (local only)"):
-        def click_event(event, x, y, flags, param):
-            if event == cv2.EVENT_LBUTTONDOWN:
-                b, g, r = img_cv[y, x]
-                color_name = get_color_name(r, g, b, csv_data)
-                color_box = np.zeros((100, 300, 3), np.uint8)
-                color_box[:] = [b, g, r]
+    height, width = img_cv.shape[:2]
+    x = st.slider("X (Width)", 0, width - 1, int(width / 2))
+    y = st.slider("Y (Height)", 0, height - 1, int(height / 2))
 
-                cv2.imshow("Detected Color", color_box)
-                print(f"Color Name: {color_name}, RGB: ({r}, {g}, {b})")
+    # Extract RGB
+    b, g, r = img_cv[y, x]
+    color_name = get_color_name(r, g, b, csv_data)
+
+    st.markdown(f"**Detected Color:** {color_name}")
+    st.markdown(f"**RGB:** ({r}, {g}, {b})")
+
+    # Show color box
+    st.markdown(
+        f"""
+        <div style='width:100px;height:100px;background-color:rgb({r},{g},{b});border:1px solid #000;'></div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 st.markdown("---")
 st.markdown("Made with ❤️ using OpenCV + Streamlit")
