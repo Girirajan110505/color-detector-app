@@ -22,3 +22,8 @@ A simple Streamlit app that detects the color name and RGB value when a user cli
    ```bash
    git clone https://github.com/yourusername/color-detector-app.git
    cd color-detector-app
+2.Install dependenicies:
+    pip install -r requirements.txt
+3.Run locally:
+    streamlit run app.py
+
