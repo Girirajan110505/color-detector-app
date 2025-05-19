@@ -29,7 +29,7 @@ if uploaded_file:
     image = Image.open(uploaded_file)
     img_cv = np.array(image)
 
-    st.image(image, caption="Click anywhere on the image", use_column_width=True)
+    st.image(image, caption="Click anywhere on the image", use_container_width=True)
 
     st.write("Click on the image to detect color (only works in local run due to OpenCV).")
 
